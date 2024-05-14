@@ -1,7 +1,7 @@
 // ADAPT! ADAPT! ADAPT!
 
 const { ObjectId } = require('mongoose').Types;
-const { Student, Course } = require('../models');
+const { Student, thought } = require('../models');
 
 // Aggregate function to get the number of students overall
 const headCount = async () => {
@@ -71,7 +71,7 @@ module.exports = {
       res.status(500).json(err);
     }
   },
-  // Delete a student and remove them from the course
+  // Delete a student and remove them from the thought
   async deleteStudent(req, res) {
     try {
       const student = await Student.findOneAndRemove({ _id: req.params.studentId });
@@ -80,15 +80,15 @@ module.exports = {
         return res.status(404).json({ message: 'No such student exists' });
       }
 
-      const course = await Course.findOneAndUpdate(
+      const thought = await thought.findOneAndUpdate(
         { students: req.params.studentId },
         { $pull: { students: req.params.studentId } },
         { new: true }
       );
 
-      if (!course) {
+      if (!thought) {
         return res.status(404).json({
-          message: 'Student deleted, but no courses found',
+          message: 'Student deleted, but no thoughts found',
         });
       }
 

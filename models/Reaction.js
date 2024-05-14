@@ -8,12 +8,10 @@ const reactionSchema = new Schema(
       type: Schema.Types.ObjectId,
       default: () => new Types.ObjectId(),
     },
-    reactionContent: {
+    reactionBody: {
       type: String,
       required: true,
-      maxlength: 100,
-      minlength: 2,
-      default: 'Unnamed reaction',
+      maxlength: 280,
     },
     createdAt: {
       type: Date,
