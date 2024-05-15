@@ -1,6 +1,6 @@
 const { Schema, model } = require('mongoose');
+const reactionSchema = require('./reactionSchema');
 
-// Schema to create a thought model
 const thoughtSchema = new Schema(
   {
     thoughtText: {
@@ -9,28 +9,37 @@ const thoughtSchema = new Schema(
       min_length: 1,
       max_length: 280,
     },
+    username: {
+      type: String,
+      required: true,
+    },
+    reactions: [reactionSchema],
     createdAt: {
       type: Date,
       default: Date.now(),
       // Use a getter method to format the timestamp on query
     },
-    username: {
-      type: String,
-      required: true,
-    },
-
-    reactions: {
-// Array of nested documents created with the reactionSchema
-    },
   },
-  {
-    toJSON: {
-      virtuals: true,
-    },
-    id: false,
-  }
+  // {
+  //   toJSON: {
+  //     virtuals: true,
+  //   },
+  //   id: false,
+  // }
 );
 
-const thought = model('thought', thoughtSchema);
+// virtual to count the number of reactions
 
-module.exports = thought;
+thoughtSchema.virtual('reactionCount').get(function() {
+  return this.reactions.length;
+});
+
+// timestamp formatting
+
+thoughtSchema.virtual('formattedCreatedAt').get(function() {
+  return this.createdAt.toLocaleString('en-US', { timeZone: 'America/New_York'});
+});
+
+const Thought = model('Thought', thoughtSchema);
+
+module.exports = Thought;

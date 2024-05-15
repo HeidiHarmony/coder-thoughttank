@@ -4,7 +4,7 @@ const { thought, Student } = require('../models');
 
 module.exports = {
   // Get all thoughts
-  async getthoughts(req, res) {
+  async getthoughts(_req, res) {
     try {
       const thoughts = await thought.find().populate('students');
       res.json(thoughts);
