@@ -1,49 +1,15 @@
-const connection = require('../config/connection');
-const { Thought, User, Reaction } = require('../models');
-connection.on('error', (err) => err);
-connection.once('open', async () => {
-  console.log('connected');
+const User = require('../models/User');
+const userData = require('./userData.json');
 
-    // Delete the collections if they exist
-    let thoughtsCheck = await connection.db.listCollections({ name: 'thoughts' }).toArray();
-    if (thoughtCheck.length) {
-      await connection.dropCollection('thoughts');
-    }
+async function seedUsers() {
+  try {
+    await User.create(userData);
+    console.log('Users seeded successfully!');
 
-    let usersCheck = await connection.db.listCollections({ name: 'users' }).toArray();
-    if (usersCheck.length) {
-      await connection.dropCollection('users');
-    }
-
-
-  // Create empty array to hold the users
-  const users = [];
-
-  // Loop 20 times -- add users to the users array
-  for (let i = 0; i < 20; i++) {
-    // Get some random assignment objects using a helper function that we imported from ./data
-    const assignments = getRandomAssignments(20);
-
-    users.push({
-      userName,
-      email,
-      thoughts,
-      friends,
-    });
+  } catch (error) {
+    console.error('Error seeding users:', error);
+    throw error;
   }
+}
 
-  // Add users to the collection and await the results
-  const userData = await user.insertMany(users);
-
-  // Add thoughts to the collection and await the results
-  await thought.insertOne({
-    thoughtText,
-    username,
-    reactions,
-  });
-
-  // Log out the seed data to indicate what should appear in the database
-  console.table(users);
-  console.info('Seeding complete! 🌱');
-  process.exit(0);
-});
+module.exports = seedUsers;
