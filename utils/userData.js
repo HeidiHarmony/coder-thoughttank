@@ -1,4 +1,4 @@
-[
+const arrayUser =[
   {
     "userName": "Neo",
     "email": "neo@thematrix.com"
@@ -40,3 +40,5 @@
     "email": "mouse@thematrix.com"
   }
 ]
+
+module.exports = arrayUser; 

@@ -1,15 +1,14 @@
-const User = require('../models/User');
-const userData = require('./userData.json');
+const{User} = require('../models');
+const userData = require('./userData');
+const connection = require('../config/connection');
 
-async function seedUsers() {
-  try {
-    await User.create(userData);
-    console.log('Users seeded successfully!');
 
-  } catch (error) {
-    console.error('Error seeding users:', error);
-    throw error;
-  }
-}
+connection.once('open', async () => {
 
-module.exports = seedUsers;
+await User.deleteMany({});
+await User.create(userData);
+console.log('Users seeded!'); 
+
+process.exit(0);
+
+});
