@@ -2,9 +2,18 @@ const User = require('../models/User');
 
 module.exports = {
   // Get all users
-  async getUsers(req, res) {
+  async getUsers(_req, res) {
     try {
+      console.log('Fetching users...');
       const users = await User.find();
+      console.log('Users:', users);
+      users.forEach(user => {
+        console.log('User ID:', user._id);
+        console.log('User Name:', user.userName);
+        console.log('User Email:', user.email);
+        console.log('User Thoughts:', user.thoughts);
+        console.log('User Friends:', user.friends);
+      });
       res.json({
         users,
         total: users.length,
