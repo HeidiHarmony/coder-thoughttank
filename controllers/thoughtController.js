@@ -1,5 +1,5 @@
 const { ObjectId } = require('mongoose').Types;
-const Thought = require('../models');
+const Thought = require('../models/Thought');
 
 module.exports = {
 
@@ -12,6 +12,26 @@ module.exports = {
       res.status(500).json(err);
     }
   },
+
+// Create a new thought
+async createThought(req, res) {
+  try {
+    const thought = await Thought.create(req.body);
+    res.json(thought);
+    // Push the created thought's id to the associated user's thoughts array
+    await User.findOneAndUpdate(
+      { _id: req.body.userId },
+      { $push: { thoughts: thought._id } }
+    );
+    res.json('The user' + user.userName + 'has a new thought: ' + thought.thoughtText + '.');
+
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json(err);
+  }
+},
+
+
   // Get a single thought
   async getSingleThought(req, res) {
     try {
