@@ -118,7 +118,7 @@ async addReaction(req, res) {
     res.json({
       thought,
       total: thought.reactions.length
-    });
+    });0
 
 
   } catch (err) {
@@ -129,19 +129,20 @@ async addReaction(req, res) {
 // Delete a reaction
 async deleteReaction(req, res) {
   try {
-    const thought = await thought.findOneAndUpdate(
+    const thought = await Thought.findOneAndUpdate(
       { _id: req.params.thoughtId },
-      { $pull: { reactions: { reactionId: req.params.reactionId } } },
+      { $pull: { reactions: { _id: req.params.reactionId } } },
       { new: true }
     );
 
     if (!thought) {
       res.status(404).json({ message: 'No thought with that ID' });
-    }
+    };
 
     res.json(thought);
+
   } catch (err) {
+    console.error(err);
     res.status(500).json(err);
-  }
-}
+  }}
 };
