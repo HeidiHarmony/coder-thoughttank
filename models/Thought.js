@@ -10,22 +10,16 @@ const thoughtSchema = new Schema(
       max_length: 280,
     },
     user_id: {
-      type: String,
+      type: Schema.Types.ObjectId, 
+      ref: 'User',
       required: true,
     },
     reactions: [reactionSchema],
     createdAt: {
       type: Date,
       default: Date.now(),
-      // Use a getter method to format the timestamp on query
     },
-  },
-  // {
-  //   toJSON: {
-  //     virtuals: true,
-  //   },
-  //   id: false,
-  // }
+  }
 );
 
 // virtual to count the number of reactions

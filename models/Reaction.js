@@ -2,17 +2,19 @@ const {Schema,Types} = require('mongoose');
 
 const reactionSchema = new Schema(
   {
-    reactionId: {
-      type: Schema.Types.ObjectId,
-      default: () => new Types.ObjectId(),
-    },
     reactionBody: {
       type: String,
       required: true,
       maxlength: 280,
     },
-    username: {
-      type: String,
+    user_id: {
+      type: Schema.Types.ObjectId, 
+      ref: 'User',
+      required: true,
+    },
+    thought_id: {
+      type: Schema.Types.ObjectId,
+      ref: 'Thought',
       required: true,
     },
     createdAt: {
@@ -21,12 +23,6 @@ const reactionSchema = new Schema(
       // Use a getter method to format the timestamp on query
     },
   },
-  // {
-  //   toJSON: {
-  //     getters: true,
-  //   },
-  //   id: false,
-  // }
 );
 
 // timestamp formatting
