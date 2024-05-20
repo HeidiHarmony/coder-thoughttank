@@ -109,7 +109,7 @@ async addReaction(req, res) {
       { runValidators: true, new: true }
     );
 
-    console.log(thought);
+    console.log(thought, thought.reactions.length);
 
     if (!thought) {
       res.status(404).json(err);
@@ -118,7 +118,7 @@ async addReaction(req, res) {
     res.json({
       thought,
       total: thought.reactions.length
-    });0
+    });
 
 
   } catch (err) {
