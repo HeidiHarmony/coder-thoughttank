@@ -51,6 +51,13 @@ If you already have some data you want to seed into your database, you can start
 If running locally with existing configuration, the base URL is `localhost:3000/api`.
 Use the http requests as shown below (get, put, post, delete)
 Anywhere that ':id' is indicated in a URL, replace it with the actual ID number for the desired user, thought, or reaction.
+Anywhere that empty quotes are shown, your data should be added.
+
+### Demo Video
+
+The routes described below are demonstrated in this video.
+
+<https://www.awesomescreenshot.com/video/27837570?key=c516b3d7c6a20b94f9150274ecdfb279>
 
 #### Users
 
@@ -62,9 +69,19 @@ To get a single user by id:
 
 To update a user:
 ![Static Badge](https://img.shields.io/badge/PUT-gold) `/users/:id`
+Provide in the body of the request:
+`{
+"userName": "",
+"email": ""
+}`
 
 To create a user:
 ![Static Badge](https://img.shields.io/badge/POST-green) `/users`
+Provide in the body of the request:
+`{
+"userName": "",
+"email": ""
+}`
 
 To delete a user:
 ![Static Badge](https://img.shields.io/badge/DELETE-red) `/users/:id`
@@ -88,12 +105,23 @@ To update a thought:
 
 To create a new thought:
 ![Static Badge](https://img.shields.io/badge/POST-green) `/thoughts/:id`
+Provide in the body of the request:
+`{
+"thoughtText": "",
+"user_id": ""
+}`
 
 To delete a thought:
 ![Static Badge](https://img.shields.io/badge/DELETE-red) `/thoughts/:id`
 
 To add a reaction to a thought:
 ![Static Badge](https://img.shields.io/badge/POST-green) `/thoughts/:id/reactions`
+Provide in the body of the request:
+{
+"reactionBody": "",
+"user_id": "",
+"thought_id": ""
+}
 
 To delete a reaction:
 ![Static Badge](https://img.shields.io/badge/DELETE-red) `/thoughts/:id/reactions/:id`
